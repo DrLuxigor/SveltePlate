@@ -1,6 +1,6 @@
-FROM node:20
+FROM node:20 AS build
 
-WORKDIR /usr/src/app
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -10,6 +10,8 @@ COPY . .
 
 RUN npm run build
 
-EXPOSE 4173
+# Expose the port
+EXPOSE 3000
 
-CMD ["npm", "run", "preview", "--", "--host"]
+# Command to run the application
+CMD ["node", "build"]
